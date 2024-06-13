@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Enter Grades";
+}
+
+<h2>Enter Grades</h2>
+
+<form asp-action="EnterGrades" method="post">
+    <div>
+        <label>Student ID:</label>
+        <input type="number" name="studentId" />
+    </div>
+    <div>
+        <label>Grades:</label>
+        <table>
+            <tr>
+                <th>Subject</th>
+                <th>Year</th>
+                <th>Score</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="grades[0].Subject" /></td>
+                <td><input type="number" name="grades[0].Year" /></td>
+                <td><input type="number" name="grades[0].Score" /></td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </table>
+    </div>
+    <button type="submit">Submit</button>
+</form>
