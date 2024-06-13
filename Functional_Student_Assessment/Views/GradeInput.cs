@@ -1,7 +1,17 @@
-﻿@model Student
+﻿using Humanizer;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-@using (Html.BeginForm("SubmitGrades", "Teacher", FormMethod.Post))
+@model YourNamespace.Models.Student
+
+@using(Html.BeginForm("SubmitGrades", "Teacher", FormMethod.Post))
 {
-    @* Your input fields for grades here *@
-    <input type="submit" value="Submit Grades" />
+    <div>
+        < label > Name:</ label >
+        @Html.TextBoxFor(m => m.Name)
+    </ div >
+    < div >
+        < label > Grades:</ label >
+        @*You will need to add input fields for each grade level and subject *@
+    </ div >
+    < input type = "submit" value = "Submit Grades" />
 }

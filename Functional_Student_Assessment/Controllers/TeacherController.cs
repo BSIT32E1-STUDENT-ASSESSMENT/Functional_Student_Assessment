@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using YourNamespace.Models; // Adjust the namespace to match your project
 
 public class TeacherController : Controller
 {
@@ -24,9 +27,7 @@ public class TeacherController : Controller
     private string CalculateStrand(Dictionary<string, Dictionary<string, double>> grades)
     {
         // Your logic to determine the best strand based on grades
-        // For simplicity, let's say you have a predefined mapping of grades to strands
-        // You can adjust this logic based on your specific requirements
-        // This is just a placeholder
+        // For simplicity, let's assume we return "STEM"
         return "STEM";
     }
 }
