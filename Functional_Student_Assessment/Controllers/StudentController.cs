@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Web.Mvc;
+
+
 using Functional_Student_Assessment.Models;
 
 public class StudentController : Controller
@@ -26,11 +27,12 @@ public class StudentController : Controller
         var studentGrade = InMemoryDatabase.StudentGrades.FirstOrDefault(s => s.Id == id);
         if (studentGrade == null)
         {
-            return HttpNotFound();
+            return NotFound(); // Change this line
         }
         var recommendedStrand = InMemoryDatabase.GetRecommendedStrand(studentGrade);
         ViewBag.RecommendedStrand = recommendedStrand;
         return View(studentGrade);
     }
+
 }
 
