@@ -2,8 +2,10 @@
 {
     public class Strand
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        // Define criteria or rules for each strand if needed
+        public string RecommendedFor { get; set; } // Add logic to determine recommendation based on grades
     }
+
 }
