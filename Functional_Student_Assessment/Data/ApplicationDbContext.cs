@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Functional_Student_Assessment.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -13,6 +13,5 @@ namespace Functional_Student_Assessment.Data
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Grade> Grades { get; set; }
-        public DbSet<Strand> Strands { get; set; }
     }
 }
