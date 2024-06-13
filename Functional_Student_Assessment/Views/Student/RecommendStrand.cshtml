@@ -1,4 +1,4 @@
-﻿@model Functional_Student_Assessment.Models.StudentGrade // Change YourNamespace to the actual namespace
+﻿@model Functional_Student_Assessment.Models.StudentGrade
 
 @{
     ViewBag.Title = "Recommend Strand";
@@ -10,6 +10,7 @@
     <h4>Recommended Strand</h4>
     <p>@ViewBag.RecommendedStrand?.Name - @ViewBag.RecommendedStrand?.Description</p>
 </div>
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")
