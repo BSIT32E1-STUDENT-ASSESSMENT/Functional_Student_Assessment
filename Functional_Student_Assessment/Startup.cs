@@ -23,6 +23,7 @@ namespace Functional_Student_Assessment
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("StudentStrandDB"));
 
+
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
