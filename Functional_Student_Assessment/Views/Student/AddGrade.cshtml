@@ -1,4 +1,4 @@
-﻿@model Functional_Student_Assessment.Models.StudentGrade // Change YourNamespace to the actual namespace
+﻿@model Functional_Student_Assessment.Models.StudentGrade
 
 @{
     ViewBag.Title = "Add Grade";
@@ -10,22 +10,27 @@
 {
     @Html.AntiForgeryToken()
 
+
+
     <div class="form-horizontal">
         <h4>StudentGrade</h4>
         <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StudentNumber">Student Number</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="StudentNumber" name="StudentNumber" />
+                <span class="text-danger"></span> <!-- Validation message will go here if needed -->
+                @Html.ValidationMessageFor(model => model.StudentNumber, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GradeLevel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GradeLevel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GradeLevel, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -54,6 +59,38 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.History, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.History, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.History, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Values, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Values, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Values, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Filipino, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Filipino, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Filipino, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TLE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TLE, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TLE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Add" class="btn btn-default" />
             </div>
@@ -64,3 +101,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })

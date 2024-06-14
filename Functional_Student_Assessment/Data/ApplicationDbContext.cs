@@ -11,7 +11,7 @@ namespace Functional_Student_Assessment.Data
         {
         }
 
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Grade> Grades { get; set; }
+        // Add DbSet for StudentGrade entity
+        public DbSet<StudentGrade> StudentGrades { get; set; }
     }
 }

@@ -13,12 +13,61 @@ namespace Functional_Student_Assessment.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Privacy()
         {
             return View();
         }
+        public IActionResult RecommendStrand(string studentNumber)
+        {
+            var studentGrade = InMemoryDatabase.StudentGrades.FirstOrDefault(s => s.StudentNumber == studentNumber);
+            if (studentGrade == null)
+            {
+                return NotFound(); // Return a 404 error if student not found
+            }
 
-        public IActionResult Privacy()
+            var recommendedStrands = Strand.GetRecommendedStrands(studentGrade.Math, studentGrade.English, studentGrade.Science,
+                                                                  studentGrade.History, studentGrade.Values, studentGrade.Filipino,
+                                                                  studentGrade.TLE);
+
+            ViewBag.RecommendedStrands = recommendedStrands;
+
+            return View("StudentDetails", studentGrade);
+        }
+
+       
+        [HttpPost]
+        public IActionResult EnterStudentNumber(string studentNumber)
+        {
+            var studentGrade = InMemoryDatabase.StudentGrades.FirstOrDefault(s => s.StudentNumber == studentNumber);
+
+            if (studentGrade == null)
+            {
+                return RedirectToAction("Index"); // Handle the case where student is not found
+            }
+
+            var recommendedStrands = InMemoryDatabase.GetRecommendedStrands(studentGrade);
+
+            ViewBag.StudentGrade = studentGrade;
+            ViewBag.RecommendedStrands = recommendedStrands;
+
+            // Redirect to StudentDetails action to display student information
+            return RedirectToAction("StudentDetails");
+        }
+
+        public IActionResult StudentDetails(StudentGrade studentGrade)
+        {
+            if (studentGrade == null)
+            {
+                return RedirectToAction("Index"); // Handle the case gracefully if studentGrade is null
+            }
+
+            var recommendedStrands = ViewBag.RecommendedStrands;
+
+            return View(studentGrade);
+        }
+
+       
+        public IActionResult Index()
         {
             return View();
         }
