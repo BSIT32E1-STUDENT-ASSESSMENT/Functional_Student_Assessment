@@ -18,39 +18,58 @@ public class StudentController : Controller
 
         foreach (var studentGrade in studentGrades)
         {
-            studentGrade.RecommendedStrandName = CalculateRecommendedStrandName(studentGrade);
-            studentGrade.RecommendedStrandDescription = CalculateRecommendedStrandDescription(studentGrade);
+            var recommendations = GetRecommendedStrand(studentGrade);
+            studentGrade.RecommendedStrandName1 = recommendations.Item1;
+            studentGrade.RecommendedStrandDescription1 = recommendations.Item2;
+            studentGrade.RecommendedStrandName2 = recommendations.Item3;
+            studentGrade.RecommendedStrandDescription2 = recommendations.Item4;
         }
 
         return View(studentGrades);
     }
 
-    private string CalculateRecommendedStrandName(StudentGrade studentGrade)
+    private (string, string, string, string) GetRecommendedStrand(StudentGrade student)
     {
-        // Implement your logic here to determine the recommended strand name based on the student's grades
-        return "Recommended Strand Name"; // Replace with your actual logic
-    }
+        string strandName1 = null;
+        string strandDescription1 = null;
+        string strandName2 = null;
+        string strandDescription2 = null;
 
-    private string CalculateRecommendedStrandDescription(StudentGrade studentGrade)
-    {
-        // Implement your logic here to determine the recommended strand description based on the student's grades
-        return "Recommended Strand Description"; // Replace with your actual logic
-    }
+        if (student.Math >= 85 && student.Science >= 85)
+        {
+            strandName1 = "STEM";
+            strandDescription1 = "Science, Technology, Engineering, and Mathematics";
+            strandName2 = "ICT";
+            strandDescription2 = "Information and Communication Technology";
+        }
+        else if (student.English >= 85 || student.Filipino >= 85)
+        {
+            strandName1 = "HUMSS";
+            strandDescription1 = "Humanities and Social Sciences";
+            strandName2 = "ABM";
+            strandDescription2 = "Accountancy and Business Management";
+        }
+        else if (student.History >= 85)
+        {
+            strandName1 = "HUMSS";
+            strandDescription1 = "Humanities and Social Sciences";
+            strandName2 = "Home Economics";
+            strandDescription2 = "Home Economics";
+        }
+        else if (student.Science >= 85)
+        {
+            strandName1 = "Industrial Arts";
+            strandDescription1 = "Industrial Arts";
+        }
+        else if (student.Math >= 85)
+        {
+            strandName1 = "ABM";
+            strandDescription1 = "Accountancy and Business Management";
+            strandName2 = "ICT";
+            strandDescription2 = "Information and Communication Technology";
+        }
 
-    public IActionResult AddGrade()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public IActionResult AddGrade(StudentGrade studentGrade)
-    {
-        studentGrade.RecommendedStrandName = "Default Strand Name";
-        studentGrade.RecommendedStrandDescription = "Default Strand Description";
-
-        _context.StudentGrades.Add(studentGrade);
-        _context.SaveChanges();
-        return RedirectToAction("Index");
+        return (strandName1, strandDescription1, strandName2, strandDescription2);
     }
 
     public IActionResult RecommendStrand(int id)
@@ -60,8 +79,21 @@ public class StudentController : Controller
         {
             return NotFound();
         }
-        var recommendedStrand = CalculateRecommendedStrandName(studentGrade);
-        ViewBag.RecommendedStrand = recommendedStrand;
+
+        var recommendations = GetRecommendedStrand(studentGrade);
+        ViewBag.RecommendedStrand1 = recommendations.Item1;
+        ViewBag.RecommendedStrandDescription1 = recommendations.Item2;
+        ViewBag.RecommendedStrand2 = recommendations.Item3;
+        ViewBag.RecommendedStrandDescription2 = recommendations.Item4;
+
         return View(studentGrade);
+    }
+
+    [HttpPost]
+    public IActionResult AddGrade(StudentGrade studentGrade)
+    {
+        _context.StudentGrades.Add(studentGrade);
+        _context.SaveChanges();
+        return RedirectToAction("Index");
     }
 }
