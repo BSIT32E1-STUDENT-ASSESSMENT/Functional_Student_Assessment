@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Functional_Student_Assessment.Models.StudentGrade
+@{
+    ViewBag.Title = "Home Page";
     ViewData["Title"] = "Home";
 }
 
@@ -6,14 +8,22 @@
 
 <form asp-action="EnterStudentNumber" method="post">
     <p>
-    <a asp-controller="Student" asp-action="EnterGrades">Enter Grades</a> |
-    <a asp-controller="Student" asp-action="ViewStrand">View Strand</a>
-    <a asp-controller="Student" asp-action="AddGrade">Add Grade</a>
-</p>
+        <a asp-controller="Student" asp-action="EnterGrades">Enter Grades</a> |
+        <a asp-controller="Student" asp-action="ViewStrand">View Strand</a>
+        <a asp-controller="Student" asp-action="AddGrade">Add Grade</a>
+    </p>
 
-    <div class="form-group">
-        <label for="studentNumber">Enter your Student Number:</label>
-        <input type="text" id="studentNumber" name="studentNumber" class="form-control" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <h1>Enter Student Number</h1>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="studentNumber">Student Number:</label>
+            <input type="text" id="studentNumber" name="studentNumber" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
 </form>
