@@ -22,14 +22,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GradeLevel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.GradeLevel, new SelectList(new List<string> { "Grade 7", "Grade 8", "Grade 9", "Grade 10" }), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.GradeLevel, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Math, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Math, new { htmlAttributes = new { @class = "form-control" } })
