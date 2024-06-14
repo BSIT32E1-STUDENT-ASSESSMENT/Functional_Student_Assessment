@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Functional_Student_Assessment.Models.StudentGrade> // Change YourNamespace to the actual namespace
+﻿@model IEnumerable<Functional_Student_Assessment.Models.StudentGrade>
 
 @{
     ViewBag.Title = "Student Grades";
@@ -27,7 +27,7 @@
                 <td>@item.English</td>
                 <td>@item.Science</td>
                 <td>
-                    <a href="@Url.Action("RecommendStrand", "Student", new { id = item.Id })">Get Recommendation</a>
+                    <p>@item.RecommendedStrandName - @item.RecommendedStrandDescription</p>
                 </td>
             </tr>
         }
