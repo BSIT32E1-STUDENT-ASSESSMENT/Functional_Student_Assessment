@@ -13,16 +13,11 @@ namespace Functional_Student_Assessment.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
         }
-         [HttpPost]
+        [HttpPost]
         public IActionResult Index(string studentNumber)
         {
             if (string.IsNullOrEmpty(studentNumber))
@@ -67,20 +62,39 @@ namespace Functional_Student_Assessment.Controllers
             return RedirectToAction("StudentDetails");
         }
 
-        public IActionResult StudentDetails()
+        public IActionResult StudentDetails(StudentGrade studentGrade)
         {
-            // Retrieve ViewBag data and display the student's details
-            if (!(ViewBag.StudentGrade is StudentGrade studentGrade) ||
-                !(ViewBag.RecommendedStrands is ValueTuple<Strand, Strand> recommendedStrands))
+            if (studentGrade == null)
             {
-                // Handle scenario where data is missing or not found
-                return RedirectToAction("Index"); // Redirect back to homepage or show an error view
+                return RedirectToAction("Index"); // Handle the case gracefully if studentGrade is null
             }
 
-            ViewBag.RecommendedStrand1 = recommendedStrands.Item1;
-            ViewBag.RecommendedStrand2 = recommendedStrands.Item2;
+            var recommendedStrands = ViewBag.RecommendedStrands;
 
             return View(studentGrade);
+        }
+
+        public IActionResult RecommendStrand(string studentNumber)
+        {
+            var studentGrade = InMemoryDatabase.StudentGrades.FirstOrDefault(s => s.StudentNumber == studentNumber);
+            if (studentGrade == null)
+            {
+                return NotFound(); // Return a 404 error if student not found
+            }
+
+            // Get recommended strands based on existing grades
+            var recommendedStrands = InMemoryDatabase.GetRecommendedStrands(studentGrade);
+
+            // Store recommended strands in ViewBag for displaying in the view
+            ViewBag.RecommendedStrands = recommendedStrands;
+
+            // Pass student grade object to the view
+            return View("StudentDetails", studentGrade);
+        }
+        
+        public IActionResult Index()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
