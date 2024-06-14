@@ -21,6 +21,8 @@
             <div class="col-md-10">
                 <input type="text" class="form-control" id="StudentNumber" name="StudentNumber" />
                 <span class="text-danger"></span> <!-- Validation message will go here if needed -->
+                @Html.ValidationMessageFor(model => model.StudentNumber, "", new { @class = "text-danger" })
+
             </div>
         </div>
 
@@ -99,3 +101,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
