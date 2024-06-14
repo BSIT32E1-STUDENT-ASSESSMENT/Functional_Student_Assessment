@@ -22,6 +22,28 @@ namespace Functional_Student_Assessment.Controllers
         {
             return View();
         }
+         [HttpPost]
+        public IActionResult Index(string studentNumber)
+        {
+            if (string.IsNullOrEmpty(studentNumber))
+            {
+                // Handle the case where studentNumber is not provided
+                return RedirectToAction("Index"); // Redirect back to the homepage or show an error
+            }
+
+            var studentGrade = InMemoryDatabase.StudentGrades.FirstOrDefault(s => s.StudentNumber == studentNumber);
+
+            if (studentGrade == null)
+            {
+                // Handle the case where student with given studentNumber is not found
+                return RedirectToAction("Index"); // Redirect back to the homepage or show an error
+            }
+
+            var recommendedStrands = InMemoryDatabase.GetRecommendedStrands(studentGrade);
+            ViewBag.RecommendedStrands = recommendedStrands;
+
+            return RedirectToAction("StudentDetails", studentGrade);
+        }
         [HttpPost]
         public IActionResult EnterStudentNumber(string studentNumber)
         {
@@ -46,20 +68,20 @@ namespace Functional_Student_Assessment.Controllers
         }
 
         public IActionResult StudentDetails()
-{
-    // Retrieve ViewBag data and display the student's details
-    if (!(ViewBag.StudentGrade is StudentGrade studentGrade) ||
-        !(ViewBag.RecommendedStrands is ValueTuple<Strand, Strand> recommendedStrands))
-    {
-        // Handle scenario where data is missing or not found
-        return RedirectToAction("Index"); // Redirect back to homepage or show an error view
-    }
+        {
+            // Retrieve ViewBag data and display the student's details
+            if (!(ViewBag.StudentGrade is StudentGrade studentGrade) ||
+                !(ViewBag.RecommendedStrands is ValueTuple<Strand, Strand> recommendedStrands))
+            {
+                // Handle scenario where data is missing or not found
+                return RedirectToAction("Index"); // Redirect back to homepage or show an error view
+            }
 
-    ViewBag.RecommendedStrand1 = recommendedStrands.Item1;
-    ViewBag.RecommendedStrand2 = recommendedStrands.Item2;
+            ViewBag.RecommendedStrand1 = recommendedStrands.Item1;
+            ViewBag.RecommendedStrand2 = recommendedStrands.Item2;
 
-    return View(studentGrade);
-}
+            return View(studentGrade);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
