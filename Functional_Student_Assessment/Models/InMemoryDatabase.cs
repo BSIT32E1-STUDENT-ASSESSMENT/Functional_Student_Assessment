@@ -9,6 +9,20 @@ public static class InMemoryDatabase
 
     static InMemoryDatabase()
     {
+        // Example: Adding dummy student grades for testing
+        StudentGrades.Add(new StudentGrade
+        {
+            StudentNumber = "12345",
+            StudentName = "John Doe",
+            Math = 85,
+            English = 90,
+            Science = 88,
+            History = 82,
+            Values = 75,
+            Filipino = 87,
+            TLE = 80
+        });
+
         // Seed with some strands for demonstration purposes
         Strands.Add(new Strand { Id = 1, Name = "STEM", Description = "Science, Technology, Engineering, and Mathematics", RecommendedForFirstChoice = "Math", RecommendedForSecondChoice = "Science" });
         Strands.Add(new Strand { Id = 2, Name = "ABM", Description = "Accountancy, Business, and Management", RecommendedForFirstChoice = "English", RecommendedForSecondChoice = "Math" });
@@ -16,15 +30,12 @@ public static class InMemoryDatabase
         // Add more strands as needed
     }
 
-    public static (Strand, Strand) GetRecommendedStrands(StudentGrade studentGrade)
+    public static (string, string) GetRecommendedStrands(StudentGrade studentGrade)
     {
         // Determine the recommended strands based on the highest grades in subjects
         var recommendedStrandNames = Strand.GetRecommendedStrands(studentGrade.Math, studentGrade.English, studentGrade.Science, studentGrade.History, studentGrade.Values, studentGrade.Filipino, studentGrade.TLE);
 
-        // Retrieve the recommended strands from the list of strands
-        var firstChoiceStrand = Strands.FirstOrDefault(s => s.Name == recommendedStrandNames.Item1);
-        var secondChoiceStrand = Strands.FirstOrDefault(s => s.Name == recommendedStrandNames.Item2);
-
-        return (firstChoiceStrand, secondChoiceStrand);
+        // Return the recommended strand names
+        return recommendedStrandNames;
     }
 }
