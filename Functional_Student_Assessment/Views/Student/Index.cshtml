@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Functional_Student_Assessment.Models.StudentGrade> 
+﻿@model IEnumerable<Functional_Student_Assessment.Models.StudentGrade>
+
 @{
     ViewBag.Title = "Student Grades";
 }
@@ -13,6 +14,9 @@
             <th>Math</th>
             <th>English</th>
             <th>Science</th>
+            <th>Filipino</th>
+            <th>Values</th>
+            <th>History</th>
             <th>Recommendation</th>
         </tr>
     </thead>
@@ -25,8 +29,11 @@
                 <td>@item.Math</td>
                 <td>@item.English</td>
                 <td>@item.Science</td>
+                <td>@item.Filipino</td>
+                <td>@item.Values</td>
+                <td>@item.History</td>
                 <td>
-                    <a href="@Url.Action("RecommendStrand", "Student", new { id = item.Id })">Get Recommendation</a>
+                    <a href="@Url.Action("RecommendStrands", "Student", new { id = item.Id })">Get Recommendation</a>
                 </td>
             </tr>
         }

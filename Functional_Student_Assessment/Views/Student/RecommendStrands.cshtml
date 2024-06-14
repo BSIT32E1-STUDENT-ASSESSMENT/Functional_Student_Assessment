@@ -7,10 +7,14 @@
 <h2>Recommend Strand</h2>
 
 <div>
-    <h4>Recommended Strand</h4>
-    <p>@ViewBag.RecommendedStrand?.Name - @ViewBag.RecommendedStrand?.Description</p>
+    <h4>Recommended Strands</h4>
+    <ul>
+        @foreach (var strand in ViewBag.RecommendedStrands)
+        {
+            <li>@strand</li>
+        }
+    </ul>
 </div>
-
 
 <div>
     @Html.ActionLink("Back to List", "Index")

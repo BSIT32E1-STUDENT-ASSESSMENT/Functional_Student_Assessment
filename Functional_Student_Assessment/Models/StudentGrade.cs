@@ -1,5 +1,4 @@
-﻿
-namespace Functional_Student_Assessment.Models
+﻿namespace Functional_Student_Assessment.Models
 {
     public class StudentGrade
     {
@@ -9,8 +8,9 @@ namespace Functional_Student_Assessment.Models
         public double Math { get; set; }
         public double English { get; set; }
         public double Science { get; set; }
+        public double Filipino { get; set; }
+        public double Values { get; set; }
+        public double History { get; set; }
         public double Grade { get; set; }
-        // Add other subjects as needed
     }
-
 }

@@ -2,35 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public static class InMemoryDatabase
+namespace Functional_Student_Assessment
 {
-    public static List<StudentGrade> StudentGrades { get; set; } = new List<StudentGrade>();
-    public static List<Strand> Strands { get; set; } = new List<Strand>();
-
-    static InMemoryDatabase()
+    public static class InMemoryDatabase
     {
-        // Seed with some strands for demonstration purposes
-        Strands.Add(new Strand { Id = 1, Name = "STEM", Description = "Science, Technology, Engineering, and Mathematics", RecommendedFor = "Math, Science" });
-        Strands.Add(new Strand { Id = 2, Name = "ABM", Description = "Accountancy, Business, and Management", RecommendedFor = "English, Math" });
-        Strands.Add(new Strand { Id = 3, Name = "HUMSS", Description = "Humanities and Social Sciences", RecommendedFor = "English, Social Studies" });
-        // Add more strands as needed
-    }
+        public static List<StudentGrade> StudentGrades { get; } = new List<StudentGrade>();
 
-    public static Strand GetRecommendedStrand(StudentGrade studentGrade)
+        public static List<string> GetRecommendedStrands(StudentGrade studentGrade)
+        {
+            var recommendedStrands = new List<string>();
+
+            // Determine the subject with the highest grade
+            var maxGradeSubject = new Dictionary<string, double>
     {
-        // Simplified logic to recommend strand based on average grade
-        var averageGrade = (studentGrade.Math + studentGrade.English + studentGrade.Science) / 3;
-        if (averageGrade > 85)
-        {
-            return Strands.FirstOrDefault(s => s.Name == "STEM");
+        { "Math", studentGrade.Math },
+        { "Science", studentGrade.Science },
+        { "English", studentGrade.English },
+        { "Filipino", studentGrade.Filipino },
+        { "Values", studentGrade.Values },
+        { "History", studentGrade.History }
+    }.OrderByDescending(x => x.Value)
+            .First().Key;
+
+            // Check the highest grade subject and recommend strands accordingly
+            if (maxGradeSubject == "Math" || maxGradeSubject == "Science")
+            {
+                recommendedStrands.Add("STEM");
+                recommendedStrands.Add("ABM");
+            }
+            else if (maxGradeSubject == "English" || maxGradeSubject == "Filipino")
+            {
+                recommendedStrands.Add("ABM");
+                recommendedStrands.Add("HUMSS");
+            }
+            else
+            {
+                recommendedStrands.Add("ABM");
+                recommendedStrands.Add("HE");
+            }
+
+            return recommendedStrands;
         }
-        else if (averageGrade > 75)
-        {
-            return Strands.FirstOrDefault(s => s.Name == "ABM");
-        }
-        else
-        {
-            return Strands.FirstOrDefault(s => s.Name == "HUMSS");
-        }
+
+
     }
 }

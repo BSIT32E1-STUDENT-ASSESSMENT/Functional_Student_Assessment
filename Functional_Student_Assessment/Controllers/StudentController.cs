@@ -1,38 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Functional_Student_Assessment.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
-
-using Functional_Student_Assessment.Models;
-
-public class StudentController : Controller
+namespace Functional_Student_Assessment.Controllers
 {
-    public ActionResult Index()
+    public class StudentController : Controller
     {
-        return View(InMemoryDatabase.StudentGrades);
-    }
-
-    public ActionResult AddGrade()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public ActionResult AddGrade(StudentGrade studentGrade)
-    {
-        InMemoryDatabase.StudentGrades.Add(studentGrade);
-        return RedirectToAction("Index");
-    }
-
-    public ActionResult RecommendStrand(int id)
-    {
-        var studentGrade = InMemoryDatabase.StudentGrades.FirstOrDefault(s => s.Id == id);
-        if (studentGrade == null)
+        public IActionResult Index()
         {
-            return NotFound(); // Change this line
+            return View(InMemoryDatabase.StudentGrades);
         }
-        var recommendedStrand = InMemoryDatabase.GetRecommendedStrand(studentGrade);
-        ViewBag.RecommendedStrand = recommendedStrand;
-        return View(studentGrade);
+
+        public IActionResult AddGrade()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddGrade(StudentGrade studentGrade)
+        {
+            InMemoryDatabase.StudentGrades.Add(studentGrade);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult RecommendStrands(int id)
+        {
+            var studentGrade = InMemoryDatabase.StudentGrades.FirstOrDefault(s => s.Id == id);
+            if (studentGrade == null)
+            {
+                return NotFound();
+            }
+
+            var recommendedStrands = InMemoryDatabase.GetRecommendedStrands(studentGrade);
+            ViewBag.RecommendedStrands = recommendedStrands;
+
+            return View("RecommendStrands", studentGrade); // Here
+        }
+
     }
-
 }
-
