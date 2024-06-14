@@ -1,4 +1,4 @@
-﻿@model Functional_Student_Assessment.Models.StudentGrade // Change YourNamespace to the actual namespace
+﻿@model Functional_Student_Assessment.Models.StudentGrade
 
 @{
     ViewBag.Title = "Add Grade";
@@ -24,7 +24,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GradeLevel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GradeLevel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.GradeLevel, new SelectList(new List<string> { "Grade 7", "Grade 8", "Grade 9", "Grade 10" }), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.GradeLevel, "", new { @class = "text-danger" })
             </div>
         </div>
