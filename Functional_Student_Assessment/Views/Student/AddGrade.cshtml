@@ -10,9 +10,20 @@
 {
     @Html.AntiForgeryToken()
 
+
+
     <div class="form-horizontal">
         <h4>StudentGrade</h4>
         <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StudentNumber">Student Number</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="StudentNumber" name="StudentNumber" />
+                <span class="text-danger"></span> <!-- Validation message will go here if needed -->
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

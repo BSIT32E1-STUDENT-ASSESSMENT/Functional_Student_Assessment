@@ -10,6 +10,12 @@
 
         public static (string, string) GetRecommendedStrands(int math, int english, int science, int history, int values, int filipino, int tle)
         {
+            // Check if there are no grades given
+            if (math == 0 && english == 0 && science == 0 && history == 0 && values == 0 && filipino == 0 && tle == 0)
+            {
+                return ("", ""); // Return empty strings if no grades are given
+            }
+
             // Determine the highest grade among all subjects
             int highestGrade = Math.Max(math, Math.Max(english, Math.Max(science, Math.Max(history, Math.Max(values, Math.Max(filipino, tle))))));
 

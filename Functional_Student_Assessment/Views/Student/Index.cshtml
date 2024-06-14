@@ -10,8 +10,8 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Student Number</th>
             <th>Name</th>
-            <th>Grade Level</th>
             <th>Math</th>
             <th>English</th>
             <th>Science</th>
@@ -28,8 +28,8 @@
         {
             var recommendedStrands = Strand.GetRecommendedStrands(item.Math, item.English, item.Science, item.History, item.Values, item.Filipino, item.TLE);
             <tr>
+                <td>@item.StudentNumber</td> <!-- Added student number column -->
                 <td>@item.StudentName</td>
-                <td>@item.GradeLevel</td>
                 <td>@item.Math</td>
                 <td>@item.English</td>
                 <td>@item.Science</td>
