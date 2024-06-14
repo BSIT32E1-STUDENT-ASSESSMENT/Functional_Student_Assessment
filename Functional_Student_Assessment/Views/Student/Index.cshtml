@@ -17,7 +17,8 @@
             <th>Values</th>
             <th>Filipino</th>
             <th>TLE</th>
-            <th>Recommendation</th>
+            <th>First Choice</th>
+            <th>Second Choice</th>
         </tr>
     </thead>
     <tbody>
@@ -32,9 +33,8 @@
                 <td>@item.Values</td>
                 <td>@item.Filipino</td>
                 <td>@item.TLE</td>
-                <td>
-                    <a href="@Url.Action("RecommendStrand", "Student", new { id = item.Id })">Get Recommendation</a>
-                </td>
+                <td>@item.FirstChoice</td>
+                <td>@item.SecondChoice</td>
             </tr>
         }
     </tbody>

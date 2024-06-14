@@ -5,12 +5,14 @@
         public int Id { get; set; }
         public string StudentName { get; set; }
         public string GradeLevel { get; set; }
-        public double Math { get; set; }
-        public double English { get; set; }
-        public double Science { get; set; }
-        public double History { get; set; }
-        public double Values { get; set; }
-        public double Filipino { get; set; }
-        public double TLE { get; set; }
+        public int Math { get; set; }
+        public int English { get; set; }
+        public int Science { get; set; }
+        public int History { get; set; }
+        public int Values { get; set; }
+        public int Filipino { get; set; }
+        public int TLE { get; set; }
+        public string FirstChoice { get; set; }
+        public string SecondChoice { get; set; }
     }
 }

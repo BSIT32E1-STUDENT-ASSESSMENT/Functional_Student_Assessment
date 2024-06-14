@@ -29,7 +29,7 @@ public class StudentController : Controller
         {
             return NotFound(); // Change this line
         }
-        var recommendedStrand = InMemoryDatabase.GetRecommendedStrand(studentGrade);
+        var recommendedStrand = InMemoryDatabase.GetRecommendedStrands(studentGrade);
         ViewBag.RecommendedStrand = recommendedStrand;
         return View(studentGrade);
     }
