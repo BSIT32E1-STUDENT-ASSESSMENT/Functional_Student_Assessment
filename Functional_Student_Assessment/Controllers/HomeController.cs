@@ -17,6 +17,13 @@ namespace Functional_Student_Assessment.Controllers
         {
             return View();
         }
+
+        public IActionResult Test()
+        {
+            return Ok("test");
+        }
+
+
         public IActionResult RecommendStrand(string studentNumber)
         {
             var studentGrade = InMemoryDatabase.StudentGrades.FirstOrDefault(s => s.StudentNumber == studentNumber);
@@ -50,8 +57,32 @@ namespace Functional_Student_Assessment.Controllers
             ViewBag.StudentGrade = studentGrade;
             ViewBag.RecommendedStrands = recommendedStrands;
 
+            studentGrade.FirstChoice = recommendedStrands.Item1;
+            studentGrade.SecondChoice = recommendedStrands.Item2;
+
             // Redirect to StudentDetails action to display student information
-            return RedirectToAction("StudentDetails");
+            return RedirectToAction("StudentDetails",studentGrade);
+        }
+
+        [HttpGet]
+        
+        public IActionResult GetStudentGrade([FromQuery] string studentNumber)
+        {
+            var studentGrade = InMemoryDatabase.StudentGrades.FirstOrDefault(s => s.StudentNumber == studentNumber);
+
+            if (studentGrade == null)
+            {
+                return RedirectToAction("Index"); // Handle the case where student is not found
+            }
+
+            var recommendedStrands = InMemoryDatabase.GetRecommendedStrands(studentGrade);
+
+          
+            studentGrade.FirstChoice = recommendedStrands.Item1;
+            studentGrade.SecondChoice = recommendedStrands.Item2;
+
+            // Redirect to StudentDetails action to display student information
+            return Ok(studentGrade);
         }
 
         public IActionResult StudentDetails(StudentGrade studentGrade)

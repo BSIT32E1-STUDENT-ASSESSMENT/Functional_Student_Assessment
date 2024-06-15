@@ -52,7 +52,7 @@
     </table>
 
     <h4>Recommended Strands</h4>
-    <p>First Choice: @(ViewBag.RecommendedStrands != null && ViewBag.RecommendedStrands.Item1 != null ? $"{ViewBag.RecommendedStrands.Item1.Name} - {ViewBag.RecommendedStrands.Item1.Description}" : "N/A")</p>
+    <p>First Choice: @Model.FirstChoice)</p>
     <p>Second Choice: @(ViewBag.RecommendedStrands != null && ViewBag.RecommendedStrands.Item2 != null ? $"{ViewBag.RecommendedStrands.Item2.Name} - {ViewBag.RecommendedStrands.Item2.Description}" : "N/A")</p>
 </div>
 
